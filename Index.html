@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Country List</title>
+    <link rel="stylesheet" href="./scripts/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="hero-section">
+            <div>
+                <h1>World Country List</h1>
+                <p>Total Number of Countries</p>
+                <input id='name'type="button" value="Name">
+                <input id='capital'type="button" value="Capital">
+                <input id='population'type="button" value="Population">
+                <input type="text" placeholder="Search Country" id="search">
+            </div>
+        </div>
+        <div class="result-section">
+            
+        </div>
+    </div>
+
+
+    <script src="./scripts/country.js"></script>
+    <script>
+        
+        let div = ''
+        let newDiv =''
+        for((country) of countries_data){
+
+            div = document.querySelector('.result-section')
+            newDiv = document.createElement('div')
+            div.appendChild(newDiv)
+            newDiv.className = 'background'
+            
+            let upgradeDiv = document.createElement('div')
+            newDiv.appendChild(upgradeDiv)
+            upgradeDiv.className = 'content'
+
+            let img = document.createElement('img')
+            upgradeDiv.appendChild(img)
+
+            let nama = document.createElement('h3')
+            upgradeDiv.appendChild(nama)
+
+            let capital = document.createElement('p')
+            upgradeDiv.appendChild(capital);
+
+            let population = document.createElement('p')
+            upgradeDiv.appendChild(population)
+
+            // masukan bendera
+            img.src = country.flag
+            img.className = 'flag'
+
+            // masukan nama Negara
+            nama.textContent = country.name
+            nama.className = 'name'
+
+
+            capital.textContent =  'Capital  :  ' + country.capital
+
+            population.textContent = 'Population  :  ' + country.population
+            // newCount = document.createElement('img')
+            // newCount.src = country.flag
+            // newCount.className= 'country'
+            // document.querySelector('.content').appendChild(img)
+
+            // namaNegara = document.createElement('p')
+            // namaNegara.textContent = country.name
+            // newCount.appendChild(namaNegara)
+            // namaNegara.className = 'nameCountry'
+        }
+        
+        let name = document.getElementById('name')
+        name.addEventListener('click',()=>{
+            countryName(name.value)
+        })
+
+
+        function countryName(){
+            let input = document.getElementById('search')
+            let nmeCntry = document.getElementsByClassName('content')
+
+            input.addEventListener('keyup', e =>{
+                const { value } = e.target
+                // console.log(value)
+                // console.log(e.target)
+
+                // Convert to lowerCase
+                let convertTLwrCse = value.toLowerCase()
+                console.log(convertTLwrCse)
+                for((coba) of nmeCntry){
+                    // console.log(coba)
+                    let nameOfCountry = coba.textContent.toLowerCase()
+                    // console.log(nameOfCountry)
+                    // bandingkan dengan nama negara yg saat ini dengan kolom pencarian
+                    if(nameOfCountry.includes(convertTLwrCse)){
+                        // jika sesuai dengan nama negara maka munculkan
+                        coba.style.display = ''
+                    }
+                    else{
+                        // jika tidak, jangan munculkan
+                        coba.style.display = 'none'
+                    }
+                }
+            })
+        }
+        
+    </script>
+
+</body>
+</html>
